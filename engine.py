@@ -111,7 +111,7 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq, sc
             RoI2_view2_norm = torch.reshape((RoI2_view2 - RoI2_view2.mean(0).unsqueeze(0)) / RoI2_view2.std(0).unsqueeze(0),(sample_size**2,16)).unsqueeze(2)
 
             # choose index for negative examples
-            neg_idx = np.random.choice(sample_size**2,(sample_size**2,5))
+            neg_idx = np.random.choice(sample_size**2,(sample_size**2,10))
             
             #negative examples
             
@@ -119,10 +119,10 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq, sc
             neg2_view2_norm =  torch.swapaxes(RoI2_view2_norm[neg_idx,:].squeeze(),1,2)
             
             #Stack the vectorized embeddings
-            RoI1_view1_stack = torch.cat((RoI1_view1_norm,RoI1_view1_norm,RoI1_view1_norm,RoI1_view1_norm,RoI1_view1_norm,RoI1_view1_norm),dim=2)
+            RoI1_view1_stack = torch.cat((RoI1_view1_norm,RoI1_view1_norm,RoI1_view1_norm,RoI1_view1_norm,RoI1_view1_norm,RoI1_view1_norm,RoI1_view1_norm,RoI1_view1_norm,RoI1_view1_norm,RoI1_view1_norm,RoI1_view1_norm),dim=2)
             neg1_view2_stack = torch.cat((RoI1_view2_norm,neg2_view2_norm),dim=2)
             
-            RoI2_view1_stack = torch.cat((RoI2_view1_norm,RoI2_view1_norm,RoI2_view1_norm,RoI2_view1_norm,RoI2_view1_norm,RoI2_view1_norm),dim=2)
+            RoI2_view1_stack = torch.cat((RoI2_view1_norm,RoI2_view1_norm,RoI2_view1_norm,RoI2_view1_norm,RoI2_view1_norm,RoI2_view1_normRoI2_view1_norm,RoI2_view1_norm,RoI2_view1_norm,RoI2_view1_norm,RoI2_view1_norm),dim=2)
             neg2_view2_stack = torch.cat((RoI2_view2_norm,neg1_view2_norm),dim=2)
             
             #Compute the similarities
